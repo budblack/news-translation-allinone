@@ -26,12 +26,23 @@ jobs:
 
       # Use this repo-self as an action
       - uses: actions/checkout@v3
+
+      # Use original repo to download webpage to markdown files.
+      - name: Checkout original repo
+        uses: article-webpage-to-markdown-action@v1.0.5
+        with:
+          newsLink: '${{ github.event.issue.Body }}'
+          ignoreSelector: '.ad-wrapper'
+          markDownFilePath: './articles/_raw/'
+          githubToken: ${{ github.token }}
+
       - name: Articles auto translate
         uses: ./
         with:
           with_issue_title: '${{ github.event.issue.title }}'
           with_issue_body: '${{ github.event.issue.Body }}'
           with_github_token: '${{ github.token }}'
+          with_task_fetch_and_save_force: false
           with_task_fetch_to_save_path: './articles/_raw/'
           with_task_fetch_to_include_selector: '.author-card-name,.post-content'
           with_task_fetch_to_ignore_selector: '.ad-wrapper'

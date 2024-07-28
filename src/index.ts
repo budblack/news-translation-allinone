@@ -9,6 +9,7 @@ export class main_options {
   with_issue_title = getInput('with_issue_title')
   with_issue_body = getInput('with_issue_body')
   with_github_token = getInput('with_github_token')
+  with_task_fetch_and_save_force = 'true' === getInput('with_task_fetch_and_save_force')
   with_task_fetch_to_save_path = getInput('with_task_fetch_to_save_path')
   with_task_fetch_to_include_selector = getInput('with_task_fetch_to_include_selector')
   with_task_fetch_to_ignore_selector = getInput('with_task_fetch_to_ignore_selector')
@@ -32,7 +33,7 @@ function gen_issue_comment(meta, path, repo, ref, raw_file, translated_file) {
 }
 async function main() {
   const options = Object.assign(new main_options(), {});
-  const { with_issue_title } = options;
+  const { with_issue_title, with_task_fetch_and_save_force } = options;
   if (!with_issue_title.toLocaleLowerCase().startsWith('[auto]')) return;
 
   let str_task_result = '';

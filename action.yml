@@ -11,6 +11,11 @@ inputs:
   with_github_token:
     description: 'GitHub token.'
     required: true
+  with_task_fetch_and_save_force:
+    description: 'Force to fetch and save markdown files with self logic.'
+    type: boolean
+    required: false
+    default: false
   with_task_fetch_to_save_path:
     description: 'The path to save the fetched HTML.'
     required: true

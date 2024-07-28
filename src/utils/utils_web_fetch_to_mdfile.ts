@@ -1,4 +1,4 @@
-import { outputFile } from "fs-extra";
+import { exists, outputFile } from "fs-extra";
 import { parseHTML } from "linkedom";
 import { join } from "path";
 import { stringify } from 'yaml';
@@ -54,6 +54,7 @@ export class utils_web_fetch_to_mdfile_options {
     str_mdfile_to_save_dir: string;
     str_webpage_include_selector: string;
     str_webpage_ignore_Selector: string;
+    with_task_fetch_and_save_force: boolean;
 }
 export async function utils_web_fetch_to_mdfile(
     options: utils_web_fetch_to_mdfile_options
@@ -63,7 +64,8 @@ export async function utils_web_fetch_to_mdfile(
         str_mdfile_to_save_name,
         str_mdfile_to_save_dir,
         str_webpage_include_selector,
-        str_webpage_ignore_Selector
+        str_webpage_ignore_Selector,
+        with_task_fetch_and_save_force
     } = options;
     // Use some lagecy code to fetch the webpage
     const window = parseHTML(await (await fetch(str_url)).text());
@@ -91,8 +93,13 @@ export async function utils_web_fetch_to_mdfile(
     options.str_mdfile_to_save_name = str_mdfile_to_save_name || str_url.split('/').filter(Boolean).at(-1) + '.md';
     const str_mdfile_to_save_filename = join(str_mdfile_to_save_dir, options.str_mdfile_to_save_name);
 
-    // If the file already exists, program will overwrite it.
-    await outputFile(str_mdfile_to_save_filename, text_article);
-
+    // For some reason, file may already prepared by preceding tasks. 
+    // So we need to check if the file already exists, and should we overwrite it. 
+    const is_file_exists = await exists(str_mdfile_to_save_filename);
+    if (is_file_exists && !with_task_fetch_and_save_force) {
+        console.log(`The file ${str_mdfile_to_save_filename} already exists and flag 'with_task_fetch_and_save_force' not true, program will not overwrite it.`);
+    } else {
+        await outputFile(str_mdfile_to_save_filename, text_article);
+    }
     return meta;
 }

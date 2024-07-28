@@ -78026,33 +78026,41 @@
         str_mdfile_to_save_name: q,
         str_mdfile_to_save_dir: re,
         str_webpage_include_selector: ae,
-        str_webpage_ignore_Selector: Ue
+        str_webpage_ignore_Selector: Ue,
+        with_task_fetch_and_save_force: lt
       } = a;
-      const lt = parseHTML(await (await fetch(C)).text());
-      Object.defineProperty(lt.document, 'baseURI', {
+      const Pt = parseHTML(await (await fetch(C)).text());
+      Object.defineProperty(Pt.document, 'baseURI', {
         value: C,
         writable: false
       });
-      const { document: Pt } = lt;
+      const { document: Wt } = Pt;
       if (ae) {
-        const a = Pt.querySelectorAll(ae);
+        const a = Wt.querySelectorAll(ae);
         if (a) {
-          Pt.body.innerHTML = '';
-          Pt.body.append(...a);
+          Wt.body.innerHTML = '';
+          Wt.body.append(...a);
         }
       }
-      const { meta: Wt, content: Ar } = HTMLtoMarkdown(Pt, Ue);
-      const Er = Object.assign(Object.assign({}, Wt), {
+      const { meta: Ar, content: Er } = HTMLtoMarkdown(Wt, Ue);
+      const Ir = Object.assign(Object.assign({}, Ar), {
         OriginalURL: C,
         Proofreader: ''
       });
-      const Ir = (0, Xi.Pz)(Er);
-      const Br = `---\r\n${Ir}\r\n---\r\n\r\n${Ar.replace('\n\n', '\n\n\x3c!-- more --\x3e\n\n')}`;
+      const Br = (0, Xi.Pz)(Ir);
+      const Qr = `---\r\n${Br}\r\n---\r\n\r\n${Er.replace('\n\n', '\n\n\x3c!-- more --\x3e\n\n')}`;
       a.str_mdfile_to_save_name =
         q || C.split('/').filter(Boolean).at(-1) + '.md';
-      const Qr = (0, as.join)(re, a.str_mdfile_to_save_name);
-      await (0, ls.outputFile)(Qr, Br);
-      return Wt;
+      const kr = (0, as.join)(re, a.str_mdfile_to_save_name);
+      const Dr = await (0, ls.exists)(kr);
+      if (Dr && !lt) {
+        console.log(
+          `The file ${kr} already exists and flag 'with_task_fetch_and_save_force' not true, program will not overwrite it.`
+        );
+      } else {
+        await (0, ls.outputFile)(kr, Qr);
+      }
+      return Ar;
     }
     function _getDefaults() {
       return {
@@ -80539,25 +80547,26 @@
       return Ue + '';
     }
     async function task_auto_translate_step_01_fetch_articels(a) {
-      const { with_issue_body: C } = a;
-      const q = C.split('\n')
+      const { with_issue_body: C, with_task_fetch_and_save_force: q } = a;
+      const re = C.split('\n')
         .filter((a) => a.trim() !== '')
         .map(utils_mdstr_extract_link);
-      for (const C of q) {
-        const q = {
+      for (const C of re) {
+        const re = {
           str_url: C,
           str_mdfile_to_save_name: undefined,
           str_mdfile_to_save_dir: a.with_task_fetch_to_save_path,
           str_webpage_include_selector: a.with_task_fetch_to_include_selector,
-          str_webpage_ignore_Selector: a.with_task_fetch_to_ignore_selector
+          str_webpage_ignore_Selector: a.with_task_fetch_to_ignore_selector,
+          with_task_fetch_and_save_force: q
         };
-        const re = await utils_web_fetch_to_mdfile(q);
-        const { str_mdfile_to_save_name: ae } = q;
-        console.log('meta:', re);
-        console.log('str_mdfile_to_save_name:', ae);
-        const Ue = (0, as.join)(a.with_task_fetch_to_save_path, ae);
-        a.step_01_result_mdfiles.push(Ue);
-        a.step_01_result_metas.push(re);
+        const ae = await utils_web_fetch_to_mdfile(re);
+        const { str_mdfile_to_save_name: Ue } = re;
+        console.log('meta:', ae);
+        console.log('str_mdfile_to_save_name:', Ue);
+        const lt = (0, as.join)(a.with_task_fetch_to_save_path, Ue);
+        a.step_01_result_mdfiles.push(lt);
+        a.step_01_result_metas.push(ae);
       }
     }
     const hl = '4.52.7';
@@ -85526,6 +85535,8 @@
         this.with_issue_title = (0, ae.getInput)('with_issue_title');
         this.with_issue_body = (0, ae.getInput)('with_issue_body');
         this.with_github_token = (0, ae.getInput)('with_github_token');
+        this.with_task_fetch_and_save_force =
+          'true' === (0, ae.getInput)('with_task_fetch_and_save_force');
         this.with_task_fetch_to_save_path = (0, ae.getInput)(
           'with_task_fetch_to_save_path'
         );
@@ -85552,24 +85563,24 @@
     }
     async function main() {
       const a = Object.assign(new src_main_options(), {});
-      const { with_issue_title: C } = a;
+      const { with_issue_title: C, with_task_fetch_and_save_force: q } = a;
       if (!C.toLocaleLowerCase().startsWith('[auto]')) return;
-      let q = '';
+      let re = '';
       await task_auto_translate_step_01_fetch_articels(a);
       await task_auto_translate_step_02_trans_articels(a);
-      const re = a.step_01_result_mdfiles.length;
-      const ae = a.step_02_result_mdfiles.length;
-      if (ae !== re) {
+      const ae = a.step_01_result_mdfiles.length;
+      const lt = a.step_02_result_mdfiles.length;
+      if (lt !== ae) {
         throw new Error(
           'The number of translated articles is not equal to the number of raw articles'
         );
       }
-      let lt = `🚀 **Auto Translate**`;
-      if (re > 1) {
-        lt += `\n\n📚 **Articles**: ${re}`;
-        for (let C = 0; C < re; C++) {
-          lt += `==========${C - 1}==========\n\n`;
-          lt += gen_issue_comment(
+      let Pt = `🚀 **Auto Translate**`;
+      if (ae > 1) {
+        Pt += `\n\n📚 **Articles**: ${ae}`;
+        for (let C = 0; C < ae; C++) {
+          Pt += `==========${C - 1}==========\n\n`;
+          Pt += gen_issue_comment(
             a.step_01_result_metas[C],
             a.step_01_result_mdfiles[C],
             Ue.context.repo,
@@ -85577,10 +85588,10 @@
             a.step_01_result_mdfiles[C],
             a.step_02_result_mdfiles[C]
           );
-          lt += '\n\n';
+          Pt += '\n\n';
         }
       } else {
-        lt = gen_issue_comment(
+        Pt = gen_issue_comment(
           a.step_01_result_metas[0],
           a.step_01_result_mdfiles[0],
           Ue.context.repo,
@@ -85589,8 +85600,8 @@
           a.step_02_result_mdfiles[0]
         );
       }
-      q += lt;
-      Object.assign(a, { str_comment: q });
+      re += Pt;
+      Object.assign(a, { str_comment: re });
       await utils_repo_submit_issue_comment(a);
       return;
     }
