@@ -25,7 +25,7 @@ jobs:
         run: echo "The description of the issue is empty." 1>&2; exit 1;
 
       - name: Articles auto fetch to markdown
-      - uses: freeCodeCamp-China/article-webpage-to-markdown-action@v1
+      - uses: freeCodeCamp-China/article-webpage-to-markdown-action@v1.0.5
         with:
           newsLink: '${{ github.event.issue.Body }}'
           ignoreSelector: '.ad-wrapper'
