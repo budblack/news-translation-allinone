@@ -24,18 +24,16 @@ jobs:
         shell: bash
         run: echo "The description of the issue is empty." 1>&2; exit 1;
 
-      # Use this repo-self as an action
-      - uses: actions/checkout@v3
-
-      # Use original repo to download webpage to markdown files.
-      - name: Checkout original repo
-        uses: article-webpage-to-markdown-action@v1.0.5
+      - name: Articles auto fetch to markdown
+      - uses: freeCodeCamp-China/article-webpage-to-markdown-action@v1
         with:
           newsLink: '${{ github.event.issue.Body }}'
           ignoreSelector: '.ad-wrapper'
           markDownFilePath: './articles/_raw/'
           githubToken: ${{ github.token }}
 
+      # Use this repo-self as an action
+      - uses: actions/checkout@v3
       - name: Articles auto translate
         uses: ./
         with:
