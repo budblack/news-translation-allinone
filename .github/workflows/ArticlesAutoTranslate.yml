@@ -33,6 +33,17 @@ jobs:
           markDownFilePath: './articles/_raw/'
           githubToken: ${{ github.token }}
 
+      - name: Articles fetch to markdown
+        uses: budblack/article-webpage-to-markdown-action@v1
+        with:
+          newsLink: '${{ github.event.issue.Body }}'
+          includeSelector: '.author-card-name,.post-content'
+          ignoreSelector: '.ad-wrapper'
+          markDownFilePath: './articles/_raw/'
+          githubToken: ${{ github.token }}
+          skipSameArticleCheck: true
+          skipIssueComment: true
+
       # Use this repo-self as an action
       - uses: actions/checkout@v3
       - name: Articles auto translate
