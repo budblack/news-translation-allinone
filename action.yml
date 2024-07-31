@@ -11,6 +11,9 @@ inputs:
   with_github_token:
     description: 'GitHub token.'
     required: true
+  with_orginal_markdown_file_path:
+    description: 'The path to the original markdown file.'
+    required: false
   with_task_fetch_and_save_force:
     description: 'Force to fetch and save markdown files with self logic.'
     type: boolean

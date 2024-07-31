@@ -85551,6 +85551,9 @@
         this.with_task_translate_to_save_path = (0, ae.getInput)(
           'with_task_translate_to_save_path'
         );
+        this.with_orginal_markdown_file_path = (0, ae.getInput)(
+          'with_orginal_markdown_file_path'
+        );
         this.step_01_result_metas = [];
         this.step_01_result_mdfiles = [];
         this.step_02_result_mdfiles = [];
@@ -85562,24 +85565,34 @@
     }
     async function main() {
       const a = Object.assign(new src_main_options(), {});
-      const { with_issue_title: C, with_task_fetch_and_save_force: q } = a;
+      const {
+        with_issue_title: C,
+        with_task_fetch_and_save_force: q,
+        with_orginal_markdown_file_path: re
+      } = a;
       if (!C.toLocaleLowerCase().startsWith('[auto]')) return;
-      let re = '';
-      await task_auto_translate_step_01_fetch_articels(a);
+      let ae = '';
+      if (re && (await (0, ls.exists)(re))) {
+        const C = re.split('/').pop();
+        await (0, ls.move)(re, (0, as.join)(a.with_task_fetch_to_save_path, C));
+        Object.assign(a, { step_01_result_mdfiles: [re] });
+      } else {
+        await task_auto_translate_step_01_fetch_articels(a);
+      }
       await task_auto_translate_step_02_trans_articels(a);
-      const ae = a.step_01_result_mdfiles.length;
-      const lt = a.step_02_result_mdfiles.length;
-      if (lt !== ae) {
+      const lt = a.step_01_result_mdfiles.length;
+      const Pt = a.step_02_result_mdfiles.length;
+      if (Pt !== lt) {
         throw new Error(
           'The number of translated articles is not equal to the number of raw articles'
         );
       }
-      let Pt = `🚀 **Auto Translate**`;
-      if (ae > 1) {
-        Pt += `\n\n📚 **Articles**: ${ae}`;
-        for (let C = 0; C < ae; C++) {
-          Pt += `==========${C - 1}==========\n\n`;
-          Pt += gen_issue_comment(
+      let Wt = `🚀 **Auto Translate**`;
+      if (lt > 1) {
+        Wt += `\n\n📚 **Articles**: ${lt}`;
+        for (let C = 0; C < lt; C++) {
+          Wt += `==========${C - 1}==========\n\n`;
+          Wt += gen_issue_comment(
             a.step_01_result_metas[C],
             a.step_01_result_mdfiles[C],
             Ue.context.repo,
@@ -85587,10 +85600,10 @@
             a.step_01_result_mdfiles[C],
             a.step_02_result_mdfiles[C]
           );
-          Pt += '\n\n';
+          Wt += '\n\n';
         }
       } else {
-        Pt = gen_issue_comment(
+        Wt = gen_issue_comment(
           a.step_01_result_metas[0],
           a.step_01_result_mdfiles[0],
           Ue.context.repo,
@@ -85599,8 +85612,8 @@
           a.step_02_result_mdfiles[0]
         );
       }
-      re += Pt;
-      Object.assign(a, { str_comment: re });
+      ae += Wt;
+      Object.assign(a, { str_comment: ae });
       await utils_repo_submit_issue_comment(a);
       return;
     }

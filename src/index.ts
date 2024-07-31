@@ -4,6 +4,7 @@ import { utils_repo_submit_issue_comment } from './utils/utils_repo_submit_issue
 import { task_auto_translate_step_01_fetch_articels } from './tasks/task_auto_translate_step_01_fetch_articels';
 import { task_auto_translate_step_02_trans_articels } from './tasks/task_auto_translate_step_02_trans_articels';
 import { join } from 'path';
+import { exists, move } from 'fs-extra';
 
 export class main_options {
   with_issue_title = getInput('with_issue_title')
@@ -15,6 +16,7 @@ export class main_options {
   with_task_fetch_to_ignore_selector = getInput('with_task_fetch_to_ignore_selector')
   with_task_translate_openai_api_key = getInput('with_task_translate_openai_api_key')
   with_task_translate_to_save_path = getInput('with_task_translate_to_save_path')
+  with_orginal_markdown_file_path = getInput('with_orginal_markdown_file_path')
 
   step_01_result_metas: any[] = []
   step_01_result_mdfiles: string[] = []
@@ -33,11 +35,19 @@ function gen_issue_comment(meta, path, repo, ref, raw_file, translated_file) {
 }
 async function main() {
   const options = Object.assign(new main_options(), {});
-  const { with_issue_title, with_task_fetch_and_save_force } = options;
+  const { with_issue_title, with_task_fetch_and_save_force, with_orginal_markdown_file_path } = options;
   if (!with_issue_title.toLocaleLowerCase().startsWith('[auto]')) return;
 
   let str_task_result = '';
-  await task_auto_translate_step_01_fetch_articels(options);
+  // If the original markdown file path is provided, skip the first step
+  if (with_orginal_markdown_file_path && await exists(with_orginal_markdown_file_path)) {
+    // Move the original markdown file to the target directory
+    const markdown_file_name = with_orginal_markdown_file_path.split('/').pop();
+    await move(with_orginal_markdown_file_path, join(options.with_task_fetch_to_save_path, markdown_file_name));
+    Object.assign(options, { step_01_result_mdfiles: [with_orginal_markdown_file_path] });
+  } else {
+    await task_auto_translate_step_01_fetch_articels(options);
+  }
   await task_auto_translate_step_02_trans_articels(options);
 
   const count_raw_article = options.step_01_result_mdfiles.length;
