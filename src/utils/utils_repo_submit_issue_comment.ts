@@ -3,9 +3,9 @@ import { debug } from '@actions/core';
 import { context } from '@actions/github';
 import { Octokit } from '@octokit/rest';
 import { main_options } from '..';
+import leven from 'leven';
 
-
-export class utils_repo_submit_issue_comment_options extends main_options{
+export class utils_repo_submit_issue_comment_options extends main_options {
     str_comment: string;
 }
 /**
@@ -24,11 +24,29 @@ export async function utils_repo_submit_issue_comment(options: utils_repo_submit
     const { issue, repository } = context.payload;
 
     if (issue && repository) {
-        await octokit.issues.createComment({
+        // Check if the previous comment exists
+        const { data: comments } = await octokit.issues.listComments({
             owner: repository.owner.login,
             repo: repository.name,
-            body: str_comment,
             issue_number: issue.number
         });
+        const distance = leven(comments[comments.length - 1].body, str_comment)
+        console.log('distance:', distance);
+        // If the previous comment is similar to the current comment, overwrite it.
+        if (distance < 10) {
+            await octokit.issues.updateComment({
+                owner: repository.owner.login,
+                repo: repository.name,
+                body: str_comment,
+                comment_id: comments[comments.length - 1].id
+            });
+        } else {
+            await octokit.issues.createComment({
+                owner: repository.owner.login,
+                repo: repository.name,
+                body: str_comment,
+                issue_number: issue.number
+            });
+        }
     }
 }

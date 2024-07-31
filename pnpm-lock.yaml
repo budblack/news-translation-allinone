@@ -17,6 +17,9 @@ importers:
       '@octokit/rest':
         specifier: ^21.0.1
         version: 21.0.1
+      leven:
+        specifier: ^4.0.0
+        version: 4.0.0
       linkedom:
         specifier: ^0.18.4
         version: 0.18.4
@@ -2052,6 +2055,10 @@ packages:
   leven@3.1.0:
     resolution: {integrity: sha512-qsda+H8jTaUaN/x5vzW2rzc+8Rw4TAQ/4KjB46IwK5VH+IlVeeeje/EoZRpiXvIqjFgK84QffqPztGI3VBLG1A==}
     engines: {node: '>=6'}
+
+  leven@4.0.0:
+    resolution: {integrity: sha512-puehA3YKku3osqPlNuzGDUHq8WpwXupUg1V6NXdV38G+gr+gkBwFC8g1b/+YcIvp8gnqVIus+eJCH/eGsRmJNw==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   lilconfig@3.0.0:
     resolution: {integrity: sha512-K2U4W2Ff5ibV7j7ydLr+zLAkIg5JJ4lPn1Ltsdt+Tz/IjQ8buJ55pZAxoP34lqIiwtF9iAvtLv3JGv7CAyAg+g==}
@@ -5751,6 +5758,8 @@ snapshots:
   kleur@4.1.5: {}
 
   leven@3.1.0: {}
+
+  leven@4.0.0: {}
 
   lilconfig@3.0.0: {}
 
