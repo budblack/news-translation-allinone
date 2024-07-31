@@ -33,7 +33,7 @@ jobs:
           newsLink: '${{ github.event.issue.Body }}'
           ignoreSelector: '.ad-wrapper'
           markDownFilePath: './articles/_tmp/'
-          github: '${{ github.token }}'
+          githubToken: '${{ github.token }}'
 
       # Use this repo-self as an action
       - uses: actions/checkout@v3
