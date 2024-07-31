@@ -31,8 +31,4 @@ export async function utils_repo_submit_issue_comment(options: utils_repo_submit
             issue_number: issue.number
         });
     }
-
-    debug(`issue: ${issue}`);
-    debug(`repository: ${repository}`);
-    debug(`comment: ${str_comment}`);
 }

@@ -89,6 +89,13 @@ export async function task_auto_translate_step_02_trans_articels(
         // 写文件
         const output_mdfile_path = with_task_translate_to_save_path + '/' + mdfile.split('/').pop();
         debug('output_mdfile_path:' + output_mdfile_path);
+
+        // 先将 _raw 中的文件拷贝到目标，执行一次 commit 再覆盖写入翻译后的文件， 便于 Git 追踪
+        await ensureFile(output_mdfile_path);
+        await writeFile(output_mdfile_path, str_md);
+
+        
+
         await ensureFile(output_mdfile_path);
         await writeFile(output_mdfile_path, str_md_translated);
 

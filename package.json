@@ -1,15 +1,7 @@
 {
   "name": "news-translation-allinone",
-  "version": "1.1.1",
-  "license": "CC-BY-NC-SA-4.0",
-  "homepage": "https://github.com/freeCodeCamp/news-translation#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/freeCodeCamp/news-translation.git"
-  },
-  "bugs": {
-    "url": "https://github.com/freeCodeCamp/news-translation/issues"
-  },
+  "version": "0.2.0",
+  "license": "UNLICENSED",
   "dependencies": {
     "@actions/core": "^1.10.1",
     "@actions/github": "^6.0.0",

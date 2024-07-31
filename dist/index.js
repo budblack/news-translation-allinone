@@ -68241,18 +68241,15 @@
       const { str_comment: C, with_github_token: q } = a;
       if (!q) throw new Error('GitHub token was not found');
       const re = new os({ auth: q });
-      const { issue: lt, repository: Pt } = Ue.context.payload;
-      if (lt && Pt) {
+      const { issue: ae, repository: lt } = Ue.context.payload;
+      if (ae && lt) {
         await re.issues.createComment({
-          owner: Pt.owner.login,
-          repo: Pt.name,
+          owner: lt.owner.login,
+          repo: lt.name,
           body: C,
-          issue_number: lt.number
+          issue_number: ae.number
         });
       }
-      (0, ae.debug)(`issue: ${lt}`);
-      (0, ae.debug)(`repository: ${Pt}`);
-      (0, ae.debug)(`comment: ${C}`);
     }
     var as = __nccwpck_require__(1017);
     var ls = __nccwpck_require__(1361);
@@ -85525,6 +85522,8 @@
         }
         const Qr = Ue + '/' + C.split('/').pop();
         (0, ae.debug)('output_mdfile_path:' + Qr);
+        await (0, ls.ensureFile)(Qr);
+        await (0, ls.writeFile)(Qr, q);
         await (0, ls.ensureFile)(Qr);
         await (0, ls.writeFile)(Qr, Pt);
         a.step_02_result_mdfiles.push(Qr);

@@ -24,26 +24,28 @@ jobs:
         shell: bash
         run: echo "The description of the issue is empty." 1>&2; exit 1;
 
-      # - uses: actions/checkout@v3
-      # - name: Crawl pages and generate Markdown files
-      #   uses: freeCodeCamp-China/article-webpage-to-markdown-action@v1
-      #   with:
-      #     newsLink: '${{ github.event.issue.Body }}'
-      #     ignoreSelector: '.ad-wrapper'
-      #     markDownFilePath: './articles/_raw/'
-      #     githubToken: ${{ github.token }}
-
       - uses: actions/checkout@v3
-      - name: Articles fetch to markdown
-        uses: budblack/article-webpage-to-markdown-action@v1
+      - name: Crawl pages and generate Markdown files
+        continue-on-error: true
+        uses: freeCodeCamp-China/article-webpage-to-markdown-action@v1
         with:
           newsLink: '${{ github.event.issue.Body }}'
-          includeSelector: '.author-card-name,.post-content'
           ignoreSelector: '.ad-wrapper'
           markDownFilePath: './articles/_raw/'
-          githubToken: ${{ github.token }}
-          skipSameArticleCheck: true
-          skipIssueComment: true
+
+      # - uses: actions/checkout@v3
+      # - name: Articles fetch to markdown
+      #   continue-on-error: true
+      #   uses: budblack/article-webpage-to-markdown-action@v1
+      #   with:
+      #     newsLink: '${{ github.event.issue.Body }}'
+      #     includeSelector: '.author-card-name,.post-content'
+      #     ignoreSelector: '.ad-wrapper'
+      #     markDownFilePath: './articles/_raw/'
+      #     # Don't need to create an issue comment
+      #     # githubToken: ${{ github.token }}
+      #     skipSameArticleCheck: true
+      #     skipIssueComment: true
 
       # Use this repo-self as an action
       - uses: actions/checkout@v3
