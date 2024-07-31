@@ -38,7 +38,7 @@ jobs:
       # Use this repo-self as an action
       - uses: actions/checkout@v3
       - name: Articles auto translate
-        uses: ./
+        uses: budblack/articles-auto-translate-action@main
         with:
           with_issue_title: '${{ github.event.issue.title }}'
           with_issue_body: '${{ github.event.issue.Body }}'

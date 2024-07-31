@@ -1,7 +1,9 @@
-import { readFile } from "fs-extra";
+import { move, readFile } from "fs-extra";
+import { main_options } from "..";
+import { join } from "path";
 
-export async function task_auto_translate_step_01B_read_articel(article_markdown_filepath: string) {
-
+export async function task_auto_translate_step_01B_read_articel(options: main_options) {
+    const { with_orginal_markdown_file_path } = options;
     /** **********************************************************************************************************************************
      *  Article markdown file should be start like:
      * ---
@@ -14,7 +16,7 @@ export async function task_auto_translate_step_01B_read_articel(article_markdown
      * ---
      *************************************************************************************************************************************/
 
-    const str_md = await readFile(article_markdown_filepath, 'utf-8');
+    const str_md = await readFile(with_orginal_markdown_file_path, 'utf-8');
     const arr_str_md = str_md.split('\n\n');
     let str_title = '', str_date = '', str_author_url = '', str_original_url = '', str_translator = '', str_reviewer = '';
     let count_flag_scan = 0;
@@ -32,12 +34,23 @@ export async function task_auto_translate_step_01B_read_articel(article_markdown
         if (count_flag_scan === 2) break;
     }
 
-    return {
+    // Move the original markdown file to the target directory, to keep original directory clean.
+    const markdown_file_name = with_orginal_markdown_file_path.split('/').pop();
+    await move(with_orginal_markdown_file_path, join(options.with_task_fetch_to_save_path, markdown_file_name), { overwrite: true });
+
+    const original_meta = {
         title: str_title,
         date: str_date,
         authorURL: str_author_url,
         originalURL: str_original_url,
         translator: str_translator,
         reviewer: str_reviewer
-    };
+    }
+    // Manually assign the meta and markdown file path to the options
+    Object.assign(options, {
+        step_01_result_mdfiles: [with_orginal_markdown_file_path],
+        step_01_result_metas: [original_meta]
+    });
+
+    return;
 }

@@ -39,27 +39,13 @@ async function main() {
   const options = Object.assign(new main_options(), {});
   console.log('Print all options:', options);
 
-  const { with_issue_title, with_task_fetch_and_save_force, with_orginal_markdown_file_path } = options;
+  const { with_issue_title } = options;
   if (!with_issue_title.toLocaleLowerCase().startsWith('[auto]')) return;
 
   let str_task_result = '';
-  // If the original markdown file path is provided, use the original markdown file to translate
-  if (with_orginal_markdown_file_path && await exists(with_orginal_markdown_file_path)) {
-    console.log('Use the original markdown file to translate');
-    // Read the meta from the original markdown file
-    const original_meta = await task_auto_translate_step_01B_read_articel(with_orginal_markdown_file_path);
-    // Move the original markdown file to the target directory, to keep original directory clean.
-    const markdown_file_name = with_orginal_markdown_file_path.split('/').pop();
-    await move(with_orginal_markdown_file_path, join(options.with_task_fetch_to_save_path, markdown_file_name), { overwrite: true });
 
-    // Manually assign the meta and markdown file path to the options
-    Object.assign(options, {
-      step_01_result_mdfiles: [with_orginal_markdown_file_path],
-      step_01_result_metas: [original_meta]
-    });
-  } else {
-    await task_auto_translate_step_01_fetch_articels(options);
-  }
+  // Read the meta from the original markdown file
+  await task_auto_translate_step_01B_read_articel(options);
   await task_auto_translate_step_02_trans_articels(options);
 
   const count_raw_article = options.step_01_result_mdfiles.length;
