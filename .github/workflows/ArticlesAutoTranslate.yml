@@ -34,11 +34,6 @@ jobs:
           ignoreSelector: '.ad-wrapper'
           markDownFilePath: './articles/_tmp/'
 
-      - name: Use the output from my custom action
-        run: |
-          markdown_file_path=${{ steps.fetch-webpage-to-markdown.outputs.markdown_file_path }}
-          echo "The file path is ${{markdown_file_path}}"
-
       # Use this repo-self as an action
       - uses: actions/checkout@v3
       - name: Articles auto translate
