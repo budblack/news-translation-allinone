@@ -1,49 +1,49 @@
 ---
-title: 如何在40岁时通过编码面试大学获得FAANG开发工作
-  创作者 John Washam [#134]
+title: 如何在40岁时通过编码面试大学获得FAANG开发工作，创作者John Washam[#134]
 date: 2024-07-28T07:54:12.090Z
 author: Quincy Larson
 authorURL: https://www.freecodecamp.org/news/author/quincy/
 OriginalURL: https://www.freecodecamp.org/news/how-john-washam-crammed-for-8-months-got-a-job-at-amazon-then-taught-1000s-of-other-devs-134/
 Proofreader: ""
+
 ---
 
-在本周的播客节目中，我采访了亚马逊的软件工程师John Washam。John还是有史以来最受欢迎的开源项目之一——Coding Interview University的创始人。
+在本周的播客节目中，我采访了亚马逊的软件工程师John Washam。John还是有史以来最流行的开源项目之一——编码面试大学（Coding Interview University）的创作者。
 
 <!-- more -->
 
-这是John的首次播客采访，也是他第一次讲述自己的故事。采访他是一种绝对的荣幸。
+这是John的首次播客采访，也是他第一次讲述自己的故事。采访他真是个莫大的荣幸。
 
 我们讨论了：
 
-- John如何在90年代送披萨攒钱买第一台电脑。“我厌倦了做一个穷孩子。”
+-   John是如何在90年代送 pizza攒钱买第一台电脑的。“我厌倦了做个总是没钱的孩子。”
     
-- John在美国军队的第一份职业生涯，他在韩国担任翻译
+-   John在美国军队中的第一份职业，他在韩国做翻译
     
-- John如何在8个月内挤时间学习计算机科学，自学足够的理论和编码技能以在大公司找到工作，然后在GitHub上发布了Coding Interview University
+-   John是如何在8个月内紧急学习计算机科学，并通过自学理论和编码技能获得大科技公司的工作，然后在GitHub上发布了编码面试大学
     
-- 在大公司当高级开发人员是什么感觉，以及你可以预期的职业旅程
+-   作为大科技公司高级开发人员的工作是什么样的，以及你可以期待的职业历程
     
 
-你能猜到我在介绍部分用贝斯演奏的是什么歌吗？这是一首1986年的摇滚歌曲。
+你能猜到我在开场时用贝斯演奏的是哪首歌吗？这是1986年的一首摇滚歌曲。
 
-此外，我要感谢每月支持我们慈善事业的9,779位好心人，他们使这个播客成为可能。您可以加入他们并支持我们的使命：[https://www.freecodecamp.org/donate][1]
+此外，我想感谢每月支持我们慈善事业的9,779位热心人士，是他们让这个播客成为可能。你也可以加入他们，支持我们的使命：[https://www.freecodecamp.org/donate][1]
 
-您可以在YouTube上观看采访：
+你可以在YouTube上观看这次采访：
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/B-QBZrkD06U" style="aspect-ratio: 16/9; width: 100%; height: auto;" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="" loading="lazy"></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/B-QBZrkD06U" style="aspect-ratio: 16 / 9; width: 100%; height: auto;" title="YouTube视频播放器" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="" loading="lazy"></iframe>
 
-或者，您可以在Apple Podcasts、Spotify或您喜欢的播客应用中收听播客。请确保在那关注freeCodeCamp播客，这样您每周五就会收到新节目。
+或者你可以在Apple Podcasts、Spotify或你喜欢的播客应用程序中收听这档播客。请务必在那里关注freeCodeCamp播客，这样你就能每周五收到新节目。
 
-在我们的对话中提到的链接：
+我们在对话中提到的链接：
 
-- Coding Interview University: [https://github.com/jwasham/coding-interview-university][2]
+-   编码面试大学（Coding Interview University）：[https://github.com/jwasham/coding-interview-university][2]
     
-- The Startup Next Door，John的博客: [https://startupnextdoor.com/][3]
+-   邻家创业（The Startup Next Door），John的博客：[https://startupnextdoor.com/][3]
     
-- John推荐的书《The Talent Code》: [https://www.amazon.com/Talent-Code-Greatness-Born-Grown/dp/055380684X][4]
+-   John推荐的书，《天才代码》（The Talent Code）：[https://www.amazon.com/Talent-Code-Greatness-Born-Grown/dp/055380684X][4]
     
-- 在LinkedIn上关注John: [https://www.linkedin.com/in/johnawasham/][5]
+-   关注John的LinkedIn：[https://www.linkedin.com/in/johnawasham/][5]
     
 
 [1]: https://www.freecodecamp.org/donate
