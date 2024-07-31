@@ -85529,6 +85529,44 @@
         a.step_02_result_mdfiles.push(Qr);
       }
     }
+    async function task_auto_translate_step_01B_read_articel(a) {
+      const C = await (0, ls.readFile)(a, 'utf-8');
+      const q = C.split('\n\n');
+      let re = '',
+        ae = '',
+        Ue = '',
+        lt = '',
+        Pt = '',
+        Wt = '';
+      let Ar = 0;
+      for (let a = 0; a < q.length; a++) {
+        const C = q[a];
+        if (C === '---') {
+          Ar += 1;
+        }
+        if (Ar === 1) {
+          if (C.startsWith('title: ')) re = C.replace('title: ', '').trim();
+          else if (C.startsWith('date: ')) ae = C.replace('date: ', '').trim();
+          else if (C.startsWith('authorURL: '))
+            Ue = C.replace('authorURL: ', '').trim();
+          else if (C.startsWith('originalURL: '))
+            lt = C.replace('originalURL: ', '').trim();
+          else if (C.startsWith('translator: '))
+            Pt = C.replace('translator: ', '').trim();
+          else if (C.startsWith('reviewer: '))
+            Wt = C.replace('reviewer: ', '').trim();
+        }
+        if (Ar === 2) break;
+      }
+      return {
+        title: re,
+        date: ae,
+        authorURL: Ue,
+        originalURL: lt,
+        translator: Pt,
+        reviewer: Wt
+      };
+    }
     class src_main_options {
       constructor() {
         this.with_issue_title = (0, ae.getInput)('with_issue_title');
@@ -85573,9 +85611,17 @@
       if (!C.toLocaleLowerCase().startsWith('[auto]')) return;
       let ae = '';
       if (re && (await (0, ls.exists)(re))) {
-        const C = re.split('/').pop();
-        await (0, ls.move)(re, (0, as.join)(a.with_task_fetch_to_save_path, C));
-        Object.assign(a, { step_01_result_mdfiles: [re] });
+        const C = await task_auto_translate_step_01B_read_articel(re);
+        const q = re.split('/').pop();
+        await (0, ls.move)(
+          re,
+          (0, as.join)(a.with_task_fetch_to_save_path, q),
+          { overwrite: true }
+        );
+        Object.assign(a, {
+          step_01_result_mdfiles: [re],
+          step_01_result_metas: [C]
+        });
       } else {
         await task_auto_translate_step_01_fetch_articels(a);
       }
