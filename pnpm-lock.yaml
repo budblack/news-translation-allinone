@@ -17,9 +17,6 @@ importers:
       '@octokit/rest':
         specifier: ^21.0.1
         version: 21.0.1
-      leven:
-        specifier: ^4.0.0
-        version: 4.0.0
       linkedom:
         specifier: ^0.18.4
         version: 0.18.4
@@ -29,6 +26,9 @@ importers:
       openai:
         specifier: ^4.52.7
         version: 4.52.7
+      string-similarity:
+        specifier: ^4.0.4
+        version: 4.0.4
       turndown:
         specifier: ^7.2.0
         version: 7.2.0
@@ -48,6 +48,9 @@ importers:
       '@types/node':
         specifier: ^20.14.11
         version: 20.14.11
+      '@types/string-similarity':
+        specifier: ^4.0.2
+        version: 4.0.2
       '@types/turndown':
         specifier: ^5.0.4
         version: 5.0.4
@@ -617,6 +620,9 @@ packages:
 
   '@types/stack-utils@2.0.3':
     resolution: {integrity: sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw==}
+
+  '@types/string-similarity@4.0.2':
+    resolution: {integrity: sha512-LkJQ/jsXtCVMK+sKYAmX/8zEq+/46f1PTQw7YtmQwb74jemS1SlNLmARM2Zml9DgdDTWKAtc5L13WorpHPDjDA==}
 
   '@types/turndown@5.0.4':
     resolution: {integrity: sha512-28GI33lCCkU4SGH1GvjDhFgOVr+Tym4PXGBIU1buJUa6xQolniPArtUT+kv42RR2N9MsMLInkr904Aq+ESHBJg==}
@@ -2056,10 +2062,6 @@ packages:
     resolution: {integrity: sha512-qsda+H8jTaUaN/x5vzW2rzc+8Rw4TAQ/4KjB46IwK5VH+IlVeeeje/EoZRpiXvIqjFgK84QffqPztGI3VBLG1A==}
     engines: {node: '>=6'}
 
-  leven@4.0.0:
-    resolution: {integrity: sha512-puehA3YKku3osqPlNuzGDUHq8WpwXupUg1V6NXdV38G+gr+gkBwFC8g1b/+YcIvp8gnqVIus+eJCH/eGsRmJNw==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
-
   lilconfig@3.0.0:
     resolution: {integrity: sha512-K2U4W2Ff5ibV7j7ydLr+zLAkIg5JJ4lPn1Ltsdt+Tz/IjQ8buJ55pZAxoP34lqIiwtF9iAvtLv3JGv7CAyAg+g==}
     engines: {node: '>=14'}
@@ -2785,6 +2787,10 @@ packages:
   string-length@4.0.2:
     resolution: {integrity: sha512-+l6rNN5fYHNhZZy41RXsYptCjA2Igmq4EG7kZAYFQI1E1VTXarr6ZPXBg6eq7Y6eK4FEhY6AJlyuFIb/v/S0VQ==}
     engines: {node: '>=10'}
+
+  string-similarity@4.0.4:
+    resolution: {integrity: sha512-/q/8Q4Bl4ZKAPjj8WerIBJWALKkaPRfrvhfF8k/B23i4nzrlRj2/go1m90In7nG/3XDSbOo0+pu6RvCTM9RGMQ==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   string-width@4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
@@ -4004,6 +4010,8 @@ snapshots:
   '@types/semver@7.5.8': {}
 
   '@types/stack-utils@2.0.3': {}
+
+  '@types/string-similarity@4.0.2': {}
 
   '@types/turndown@5.0.4': {}
 
@@ -5759,8 +5767,6 @@ snapshots:
 
   leven@3.1.0: {}
 
-  leven@4.0.0: {}
-
   lilconfig@3.0.0: {}
 
   lines-and-columns@1.2.4: {}
@@ -6764,6 +6770,8 @@ snapshots:
     dependencies:
       char-regex: 1.0.2
       strip-ansi: 6.0.1
+
+  string-similarity@4.0.4: {}
 
   string-width@4.2.3:
     dependencies:

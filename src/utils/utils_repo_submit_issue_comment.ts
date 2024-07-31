@@ -3,7 +3,7 @@ import { debug } from '@actions/core';
 import { context } from '@actions/github';
 import { Octokit } from '@octokit/rest';
 import { main_options } from '..';
-import leven from 'leven';
+import { compareTwoStrings } from 'string-similarity';
 
 export class utils_repo_submit_issue_comment_options extends main_options {
     str_comment: string;
@@ -30,10 +30,11 @@ export async function utils_repo_submit_issue_comment(options: utils_repo_submit
             repo: repository.name,
             issue_number: issue.number
         });
-        const distance = leven(comments[comments.length - 1].body, str_comment)
-        console.log('distance:', distance);
+        console.log('comments:', comments);
+        const similar = compareTwoStrings(comments[comments.length - 1].body, str_comment);
+        console.log('similar:', similar);
         // If the previous comment is similar to the current comment, overwrite it.
-        if (distance < 10) {
+        if (similar > 0.6) {
             await octokit.issues.updateComment({
                 owner: repository.owner.login,
                 repo: repository.name,
