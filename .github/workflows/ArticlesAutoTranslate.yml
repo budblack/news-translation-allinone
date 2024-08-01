@@ -28,12 +28,14 @@ jobs:
       - name: Crawl pages and generate Markdown files
         id: fetch-webpage-to-markdown
         continue-on-error: true
-        uses: freeCodeCamp-China/article-webpage-to-markdown-action@v2
+        uses: budblack/article-webpage-to-markdown-action@dev
         with:
-          pageURL: '${{ github.event.issue.Body }}'
-          includedSelector: 'span.author-card-name,section.post-full-content'
-          excludedSelector: '.ad-wrapper'
-          markdownFolder: './articles/_tmp/'
+          newsLink: '${{ github.event.issue.Body }}'
+          includeSelector: 'span.author-card-name,section.post-full-content'
+          ignoreSelector: '.ad-wrapper'
+          skipSameArticleCheck: true
+          skipIssueComment: true
+          markDownFilePath: './articles/_tmp/'
           githubToken: '${{ github.token }}'
 
       - name: Articles auto translate
