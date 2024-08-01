@@ -28,7 +28,7 @@ jobs:
       - name: Crawl pages and generate Markdown files
         id: fetch-webpage-to-markdown
         continue-on-error: true
-        uses: budblack/article-webpage-to-markdown-action@dev
+        uses: freeCodeCamp-China/article-webpage-to-markdown-action@v2
         with:
           newsLink: '${{ github.event.issue.Body }}'
           includeSelector: 'span.author-card-name,section.post-full-content'
