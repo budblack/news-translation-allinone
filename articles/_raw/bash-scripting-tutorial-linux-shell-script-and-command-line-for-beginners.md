@@ -1,214 +1,213 @@
 ---
-title: Bash スクリプトチュートリアル – 初心者向けの Linux シェルスクリプトとコマンドライン
-date: 2024-07-17T12:41:14.502Z
-authorURL: ""
-originalURL: https://www.freecodecamp.org/japanese/news/bash-scripting-tutorial-linux-shell-script-and-command-line-for-beginners/
+title: Bash Scripting Tutorial – Linux Shell Script and Command Line for Beginners
+date: 2024-08-02T08:22:53.260Z
+author: Zaira Hira
+authorURL: https://www.freecodecamp.org/news/author/zaira/
+originalURL: https://www.freecodecamp.org/news/bash-scripting-tutorial-linux-shell-script-and-command-line-for-beginners/
 translator: ""
 reviewer: ""
 ---
 
-**原文:** [Bash Scripting Tutorial – Linux Shell Script and Command Line for Beginners][1]
+In Linux, process automation relies heavily on shell scripting. This involves creating a file containing a series of commands that can be executed together.
 
 <!-- more -->
 
-Linux では、プロセスの自動化は shell スクリプトに大きく依存しています。shell スクリプトとは、一連のコマンドを含むファイルを作成し、まとめて実行できるようにすることを意味します。
+In this article, we'll start with the basics of bash scripting which includes variables, commands, inputs/ outputs, and debugging. We'll also see examples of each along the way.
 
-この記事では、変数、コマンド、入力 / 出力、およびデバッグを含む bash スクリプトの基本から説明します。それぞれの例もあわせて見ていきます。
+Let's get started. 🚀
 
-それでは始めましょう。🚀
+## Table of Contents
 
-## 目次
+1.  [Pre-requisites][1]
+2.  [Introduction][2]
 
-1.  [事前準備][2]
-2.  [はじめに][3]
+-   [Definition of Bash scripting][3]
+-   [Advantages of Bash scripting][4]
+-   [Overview of Bash shell and command line interface][5]
 
--   [Bash スクリプトの定義][4]
--   [Bash スクリプトの利点][5]
--   [Bash shell とコマンドラインインターフェースの概要][6]
+3.  [How to Get Started with Bash Scripting][6]
 
-3.  [Bash スクリプトの始め方][7]
+-   [How to Run Bash Commands from the Command Line][7]
+-   [How to Create and Execute Bash Scripts][8]
 
--   [コマンドラインから Bash コマンドを実行する方法][8]
--   [Bash スクリプトの作成と実行方法][9]
+4.  [Bash Scripting Basics][9]
 
-4.  [Bash スクリプトの基本][10]
+-   [Comments in bash scripting][10]
+-   [Variables and data types in Bash][11]
+-   [Input and output in Bash scripts][12]
+-   [Basic Bash commands (echo, read, etc.)][13]
+-   [Conditional statements (if/else)][14]
 
--   [Bash スクリプトでのコメント][11]
--   [Bash における変数とデータ型][12]
--   [入力と出力に関する Bash スクリプト][13]
--   [基本的な Bash コマンド (echo、read など)][14]
--   [条件文 (if / else)][15]
+5.  [Looping and Branching in Bash][15]
 
-5.  [Bash におけるループと分岐][16]
+-   [While loop][16]
+-   [For loop][17]
+-   [Case statements][18]
 
--   [While ループ][17]
--   [For ループ][18]
--   [Case 文][19]
+6.  [How to Schedule Scripts using cron][19]
+7.  [How to Debug and Troubleshoot Bash Scripts][20]
+8.  [Conclusion][21]
 
-6.  [cron を使用したスクリプトのスケジュール設定方法][20]
-7.  [Bash スクリプトのデバッグとトラブルシューティング方法][21]
-8.  [結論][22]
+-   [Resources for learning more about Bash scripting][22]
 
--   [Bash スクリプトに関するさらなる学習リソース][23]
+## Pre-requisites
 
-## 事前準備
+To follow along with this tutorial, you should have the following accesses:
 
-このチュートリアルに従うには、次のアクセス権が必要です:
+-   A running version of Linux with access to the command line.
 
--   コマンドラインにアクセスできる、実行可能な Linux のバージョン。
+If you do not have Linux installed or you are just starting out, you can easily access the Linux command line through [Replit][23]. Replit is a browser-based IDE where you can access the bash shell in a few minutes.
 
-Linux をインストールしていない場合や、まだ始めたばかりの場合は、[Replit][24] を介して簡単に Linux コマンドラインにアクセスできます。Replit はブラウザベースの IDE であり、数分で bash シェルにアクセスできます。
+You can also install Linux on top of your Windows system using WSL (Windows Subsystem for Linux). [Here][24] is a tutorial for that.
 
-Windows システム上に Linux をインストールする方法として、WSL (Windows Subsystem for Linux) を使用することもできます。[そのためのチュートリアルはこちら][25]です。
+## Introduction
 
-## はじめに
+### Definition of Bash scripting
 
-### Bash スクリプトの定義
+A bash script is a file containing a sequence of commands that are executed by the bash program line by line. It allows you to perform a series of actions, such as navigating to a specific directory, creating a folder, and launching a process using the command line.
 
-Bash スクリプトとは、bash プログラムによって一行ずつ実行されるコマンドのシーケンスを含むファイルのことです。これにより、特定のディレクトリへの移動、フォルダの作成、コマンドラインを使用したプロセスの起動など、一連の操作を実行することができます。
+By saving these commands in a script, you can repeat the same sequence of steps multiple times and execute them by running the script.
 
-これらのコマンドをスクリプトに保存することにより、スクリプトを実行するだけで、同じ手順を何度も繰り返すことができます。
+### Advantages of Bash scripting
 
-### Bash スクリプトの利点
+Bash scripting is a powerful and versatile tool for automating system administration tasks, managing system resources, and performing other routine tasks in Unix/Linux systems. Some advantages of shell scripting are:
 
-Bash スクリプトは、システム管理タスクの自動化、システムリソースの管理、および Unix / Linux システムでのその他のルーチンタスクを実行するための強力で多用途なツールです。シェルスクリプトの利点には以下のものがあります:
+-   **Automation**: Shell scripts allow you to automate repetitive tasks and processes, saving time and reducing the risk of errors that can occur with manual execution.
+-   **Portability**: Shell scripts can be run on various platforms and operating systems, including Unix, Linux, macOS, and even Windows through the use of emulators or virtual machines.
+-   **Flexibility**: Shell scripts are highly customizable and can be easily modified to suit specific requirements. They can also be combined with other programming languages or utilities to create more powerful scripts.
+-   **Accessibility**: Shell scripts are easy to write and don't require any special tools or software. They can be edited using any text editor, and most operating systems have a built-in shell interpreter.
+-   **Integration**: Shell scripts can be integrated with other tools and applications, such as databases, web servers, and cloud services, allowing for more complex automation and system management tasks.
+-   **Debugging**: Shell scripts are easy to debug, and most shells have built-in debugging and error-reporting tools that can help identify and fix issues quickly.
 
--   **自動化**: シェルスクリプトは繰り返しのタスクやプロセスを自動化でき、手動実行によるエラーのリスクを減らしながら時間を節約できます。
--   **移植性**: シェルスクリプトは Unix、Linux、macOS、さらにはエミュレーターや仮想マシンを使えば Windows でも実行可能です。
--   **柔軟性**: シェルスクリプトはカスタマイズ性が非常に高く、特定の要件に合わせて簡単に修正できます。他のプログラミング言語やユーティリティと組み合わせて、より強力なスクリプトを作成することも可能です。
--   **アクセシビリティ**: シェルスクリプトは簡単に書ける上、特別なツールやソフトウェアを必要としません。どのテキストエディタでも編集でき、大部分のオペレーティングシステムには標準でシェルインタープリターが搭載されています。
--   **統合性**: シェルスクリプトはデータベース、ウェブサーバー、クラウドサービスなど、他のツールやアプリケーションと統合でき、より複雑な自動化やシステム管理タスクを実行することができます。
--   **デバッグ**: シェルスクリプトはデバッグが容易で、ほとんどのシェルにはデバッグおよびエラーレポートツールが内蔵されており、問題を迅速に特定して修正するのに役立ちます。
+### Overview of Bash shell and command line interface
 
-### Bash シェルとコマンドラインインターフェースの概要
+The terms "shell" and "bash" are used interchangeably. But there is a subtle difference between the two.
 
-「シェル」と「bash」という用語は同じように使われることがありますが、二つの間には微妙な違いがあります。
+The term "shell" refers to a program that provides a command-line interface for interacting with an operating system. Bash (Bourne-Again SHell) is one of the most commonly used Unix/Linux shells and is the default shell in many Linux distributions.
 
-「シェル」という用語は、オペレーティングシステムと対話するためのコマンドラインインターフェースを提供するプログラムを指します。Bash (Bourne-Again SHell) は最も一般的に使用される Unix / Linux シェルの一つで、多くの Linux ディストリビューションでデフォルトのシェルとなっています。
+A shell or command-line interface looks like this:
 
-シェルやコマンドラインインターフェースは次のような見た目をしています:
+![image-135](https://www.freecodecamp.org/news/content/images/2023/03/image-135.png)
 
-![image-135](https://www.freecodecamp.org/japanese/news/content/images/2024/06/image-135.png)
+The shell accepts commands from the user and displays the output
 
-ユーザーからのコマンドを受け付け、出力を表示するシェル
+In the above output, `zaira@Zaira` is the shell prompt. When a shell is used interactively, it displays a `$` when it is waiting for a command from the user.
 
-上記の出力例では、`zaira@Zaira` がシェルプロンプトです。シェルが対話的に使用される場合、ユーザーからのコマンドを待っているときに `$` が表示されます。
+If the shell is running as root (a user with administrative rights), the prompt is changed to `#`. The superuser shell prompt looks like this:
 
-シェルが root (管理権限を持つユーザー) として実行されている場合、プロンプトは `#` に変わります。スーパーユーザーのシェルプロンプトは次のような見た目です:
-
-```Bash
+```bash
 [root@host ~]#
 ```
 
-Bash はシェルの一種ですが、他にも Korn シェル (ksh)、C シェル (csh)、Z シェル (zsh) などのシェルがあります。各シェルにはそれぞれ独自の構文と機能がありますが、いずれもオペレーティングシステムと対話するためのコマンドラインインターフェースを提供するという共通の目的を持っています。
+Although Bash is a type of shell, there are other shells available as well, such as Korn shell (ksh), C shell (csh), and Z shell (zsh). Each shell has its own syntax and set of features, but they all share the common purpose of providing a command-line interface for interacting with the operating system.
 
-`ps` コマンドを使用して、自分のシェルの種類を確認することができます:
+You can determine your shell type using the `ps` command:
 
-```Bash
+```bash
 ps
 ```
 
-私の環境では、以下のように出力結果されます:
+Here is the output for me:
 
-![image-134](https://www.freecodecamp.org/japanese/news/content/images/2024/06/image-134.png)
+![image-134](https://www.freecodecamp.org/news/content/images/2023/03/image-134.png)
 
-シェルの種類の確認。私は Bash シェルを使用しています。
+Checking the shell type. I'm using bash shell
 
-要約すると、「シェル (shell)」はコマンドラインインターフェースを提供する任意のプログラムを指す広義の用語であり、「Bash」は Unix / Linux システムで広く使用されている特定の種類のシェルです。
+In summary, while "shell" is a broad term that refers to any program that provides a command-line interface, "Bash" is a specific type of shell that is widely used in Unix/Linux systems.
 
-注意: このチュートリアルでは「bash」シェルを使用します。
+Note: In this tutorial, we will be using the "bash" shell.
 
-## Bash スクリプトの始め方
+## How to Get Started with Bash Scripting
 
-### コマンドラインから Bash コマンドを実行する方法
+### Running Bash commands from the command line
 
-前述の通り、シェルプロンプトは以下のように表示されます:
+As mentioned earlier, the shell prompt looks something like this:
 
-```Bash
+```bash
 [username@host ~]$
 ```
 
-`$` マークの後に任意のコマンドを入力し、その出力をターミナルで確認できます。
+You can enter any command after the `$` sign and see the output on the terminal.
 
-一般的に、コマンドは以下の構文に従います:
+Generally, commands follow this syntax:
 
-```Bash
+```
 command [OPTIONS] arguments
 ```
 
-基本的な Bash コマンドについていくつか説明しながら、その出力を見てみましょう。一緒に試しながら進めてください :)
+Let's discuss a few basic bash commands and see their outputs. Make sure to follow along :)
 
--   `date`: 現在の日付を表示します。
+-   `date`: Displays the current date
 
-```Bash
+```bash
 zaira@Zaira:~/shell-tutorial$ date
 Tue Mar 14 13:08:57 PKT 2023
 ```
 
--   `pwd`: 現在の作業ディレクトリを表示します。
+-   `pwd`: Displays the present working directory.
 
-```Bash
+```bash
 zaira@Zaira:~/shell-tutorial$ pwd
 /home/zaira/shell-tutorial
 ```
 
--   `ls`: 現在のディレクトリの内容を一覧表示します。
+-   `ls`: Lists the contents of the current directory.
 
-```Bash
+```bash
 zaira@Zaira:~/shell-tutorial$ ls
 check_plaindrome.sh  count_odd.sh  env  log  temp
 ```
 
--   `echo`: テキスト文字列や変数の値をターミナルに表示します。
+-   `echo`: Prints a string of text, or value of a variable to the terminal.
 
-```Bash
+```bash
 zaira@Zaira:~/shell-tutorial$ echo "Hello bash"
 Hello bash
 ```
 
-コマンドのマニュアルは `man` コマンドでいつでも参照できます。
+You can always refer to a commands manual with the `man` command.
 
-例えば、`ls` のマニュアルは以下のように表示されます:
+For example, the manual for `ls` looks something like this:
 
-![image-138](https://www.freecodecamp.org/japanese/news/content/images/2024/06/image-138.png)
+![image-138](https://www.freecodecamp.org/news/content/images/2023/03/image-138.png)
 
-`man` コマンドを使用すると、コマンドの詳細なオプションを確認できます。
+You can see options for a command in detail using `man`
 
-### Bash スクリプトの作成と実行方法
+### How to Create and Execute Bash scripts
 
-### スクリプトの命名規則
+#### Script naming conventions
 
-命名規則によれば、Bash スクリプトは `.sh` で終わります。ただし、`sh` の拡張子なしでも Bash スクリプトは正常に実行できます。
+By naming convention, bash scripts end with `.sh`. However, bash scripts can run perfectly fine without the `sh` extension.
 
-### Shebang の追加
+#### Adding the Shebang
 
-Bash スクリプトは「シバン」`shebang` で始まります。Shebang は、hash `#` と bang `!` に続いて bash シェルのパスが書かれたものです。これはスクリプトの最初の行に書かれます。Shebang はシェルに対して、このスクリプトを bash シェルで実行するよう指示します。Shebang は単に bash インタープリターの絶対パスです。
+Bash scripts start with a `shebang`. Shebang is a combination of `bash #` and `bang !` followed by the bash shell path. This is the first line of the script. Shebang tells the shell to execute it via bash shell. Shebang is simply an absolute path to the bash interpreter.
 
-以下は shebang ステートメントの例です:
+Below is an example of the shebang statement.
 
-```Bash
+```bash
 #!/bin/bash
 ```
 
-次のコマンドを使用して、お使いの bash シェルのパス (上記の例とは異なる場合があります) を見つけることができます:
+You can find your bash shell path (which may vary from the above) using the command:
 
-```Bash
+```bash
 which bash
 ```
 
-### 最初の Bash スクリプトを作成する
+#### Creating our first bash script
 
-これから作成するスクリプトでは、ユーザーにパスの入力を促します。そして結果として、そのパスの内容を一覧表示します。
+Our first script prompts the user to enter a path. In return, its contents will be listed.
 
-まず、`vi` コマンドを使用して、`run_all.sh` という名前のファイルを作成してください。他の任意のエディタを使用しても構いません。
+Create a file named `run_all.sh` using the `vi` command. You can use any editor of your choice.
 
-```Bash
+```bash
 vi run_all.sh
 ```
 
-ファイルに以下のコマンドを追加して保存してください:
+Add the following commands in your file and save it:
 
-```Bash
+```bash
 #!/bin/bash
 echo "Today is " `date`
 
@@ -219,11 +218,11 @@ echo -e "\n you path has the following files and folders: "
 ls $the_path
 ```
 
-ユーザーが指定したディレクトリの内容を表示するスクリプト
+Script to print contents of a user supplied directory
 
-スクリプトを行ごとに詳しく見てみましょう。同じスクリプトを、行番号付きで以下に示します。
+Let's take a deeper look at the script line by line. I am displaying the same script again, but this time with line numbers.  
 
-```Bash
+```bash
   1 #!/bin/bash
   2 echo "Today is " `date`
   3
@@ -234,74 +233,74 @@ ls $the_path
   8 ls $the_path
 ```
 
--   1 行目: シバン (`#!/bin/bash`) は Bash シェルのパスを指します。
--   2 行目: `echo` コマンドはバッククォートで囲まれた `date` を使用して、現在の日付と時刻をターミナルに表示します。
--   4 行目: ユーザーに有効なパスを入力してもらいます。
--   5 行目: `read` コマンドは入力を読み取り、変数 `the_path` に格納します。
--   8 行目: `ls` コマンドは変数に格納されたパスを取り、現在のファイルやフォルダを表示します。
+-   Line #1: The shebang (`#!/bin/bash`) points toward the bash shell path.
+-   Line #2: The `echo` command is displaying the current date and time on the terminal. Note that the `date` is in backticks.
+-   Line #4: We want the user to enter a valid path.
+-   Line #5: The `read` command reads the input and stores it in the variable `the_path`.
+-   line #8: The `ls` command takes the variable with the stored path and displays the current files and folders.
 
-### Bash スクリプトを実行する
+#### Executing the bash script
 
-スクリプトを実行可能にするために、次のコマンドでユーザーに実行権限を付与します:
+To make the script executable, assign execution rights to your user using this command:
 
-```Bash
+```bash
 chmod u+x run_all.sh
 ```
 
-ここでは、
+Here,
 
--   `chmod` は現在のユーザー `u` のファイルの所有権を変更します。
--   `+x` は現在のユーザーに実行権限を追加します。これにより、ファイルの所有者であるユーザーがスクリプトを実行できるようになります。
--   `run_all.sh` は実行可能にしたいファイルです。
+-   `chmod` modifies the ownership of a file for the current user :`u`.
+-   `+x` adds the execution rights to the current user. This means that the user who is the owner can now run the script.
+-   `run_all.sh` is the file we wish to run.
 
-以下の方法でスクリプトを実行できます:
+You can run the script using any of the mentioned methods:
 
 -   `sh run_all.sh`
 -   `bash run_all.sh`
 -   `./run_all.sh`
 
-それでは実際に動作する様子を見てみましょう🚀
+Let's see it running in action 🚀
 
-![run-script-bash-2](https://www.freecodecamp.org/japanese/news/content/images/2024/06/run-script-bash-2.gif)
+![run-script-bash-2](https://www.freecodecamp.org/news/content/images/2023/03/run-script-bash-2.gif)
 
-## Bash スクリプトの基本
+## Bash Scripting Basics
 
-### Bash スクリプトでのコメント
+### Comments in bash scripting
 
-Bash スクリプトのコメントは `#` から始まります。つまり、`#` で始まる行はコメントであり、インタープリターに無視されます。
+Comments start with a `#` in bash scripting. This means that any line that begins with a `#` is a comment and will be ignored by the interpreter.
 
-コメントはコードのドキュメント化に非常に役立ち、他の人がコードを理解しやすくするためにも、コメントを追加するのは良い習慣です。
+Comments are very helpful in documenting the code, and it is a good practice to add them to help others understand the code.
 
-以下はコメントの例です:
+These are examples of comments:
 
 ```bash
 # This is an example comment
 # Both of these lines will be ignored by the interpreter
 ```
 
-### Bash における変数とデータ型
+### Variables and data types in Bash
 
-変数を使用するとデータを保存できます。変数を使ってスクリプトのあらゆる場所でデータを読み取り、アクセスし、操作することができます。
+Variables let you store data. You can use variables to read, access, and manipulate data throughout your script.
 
-Bash にはデータ型がありません。Bash では、変数は数値、個々の文字、または文字列を保存することができます。
+There are no data types in Bash. In Bash, a variable is capable of storing numeric values, individual characters, or strings of characters.
 
-Bash では、変数の値を以下のように使用および設定できます:
+In Bash, you can use and set the variable values in the following ways:
 
-1.  直接値を割り当てる例:
+1.  Assign the value directly:
 
 ```bash
 country=Pakistan
 ```
 
-2.  コマンド置換を使用して、プログラムやコマンドの出力に基づいて値を割り当てる例。既存の変数の値にアクセスするには `$` が必要です。
+2\.  Assign the value based on the output obtained from a program or command, using command substitution. Note that `$` is required to access an existing variable's value.
 
 ```bash
 same_country=$country
 ```
 
-`country` の値を新しい変数 `same_country` に割り当てる
+This assigns the value of `country`to the new variable `same_country`
 
-変数の値にアクセスするには、変数名の頭に `$` を付け加えます。
+To access the variable value, append `$` to the variable name.
 
 ```bash
 zaira@Zaira:~$ country=Pakistan
@@ -312,20 +311,20 @@ zaira@Zaira:~$ echo $new_country
 Pakistan
 ```
 
-変数に値を割り当てて値を表示する
+Assigning and printing variable values
 
-### 変数の命名規則
+### Variable naming conventions
 
-Bash スクリプティングにおける変数の命名規則は以下の通りです:
+In Bash scripting, the following are the variable naming conventions:
 
-1.  変数名は文字またはアンダースコア (`_`) で始める必要があります。
-2.  変数名には文字、数字、アンダースコア (`_`) を含めることができます。
-3.  変数名は大文字と小文字を区別します。
-4.  変数名にはスペースや特殊文字を含めることはできません。
-5.  変数の目的を反映した説明的な名前を使用します。
-6.  `if`、`then`、`else`、`fi` などの予約キーワードを変数名として使用することは避けます。
+1.  Variable names should start with a letter or an underscore (`_`).
+2.  Variable names can contain letters, numbers, and underscores (`_`).
+3.  Variable names are case-sensitive.
+4.  Variable names should not contain spaces or special characters.
+5.  Use descriptive names that reflect the purpose of the variable.
+6.  Avoid using reserved keywords, such as `if`, `then`, `else`, `fi`, and so on as variable names.
 
-以下は Bash で有効な変数名の例です:
+Here are some examples of valid variable names in Bash:
 
 ```bash
 name
@@ -335,7 +334,7 @@ myVar
 MY_VAR
 ```
 
-以下は Bash で無効な変数名の例です:
+And here are some examples of invalid variable names:
 
 ```bash
 2ndvar (variable name starts with a number)
@@ -343,17 +342,17 @@ my var (variable name contains a space)
 my-var (variable name contains a hyphen)
 ```
 
-これらの命名規則に従うことは、Bash スクリプトをより読みやすく、メンテナンスしやすくするのに役立ちます。
+Following these naming conventions helps make Bash scripts more readable and easier to maintain.
 
-### 入力と出力に関する Bash スクリプト
+### Input and output in Bash scripts
 
-### 入力の収集
+#### Gathering input
 
-このセクションでは、スクリプトに入力を提供するいくつかの方法について説明します。
+In this section, we'll discuss some methods to provide input to our scripts.
 
-1.  ユーザーの入力を読み取り、変数に格納する方法
+1.  Reading the user input and storing it in a variable
 
-`read` コマンドを使用してユーザーの入力を読み取ることができます。
+We can read the user input using the `read` command.
 
 ```bash
 #!/bin/bash 
@@ -365,11 +364,11 @@ read entered_name
 echo -e "\nWelcome to bash tutorial" $entered_name
 ```
 
-![name-sh](https://www.freecodecamp.org/japanese/news/content/images/2024/07/name-sh.gif)
+![name-sh](https://www.freecodecamp.org/news/content/images/2023/03/name-sh.gif)
 
-2.  ファイルから読み取る方法
+2\.  Reading from a file
 
-このコードは、`input.txt` という名前のファイルから各行を読み取り、それをターミナルに出力します。while ループについては後ほど学びます。
+This code reads each line from a file named `input.txt` and prints it to the terminal. We'll study while loops later in this article.
 
 ```bash
 while read line
@@ -378,90 +377,90 @@ do
 done < input.txt
 ```
 
-3.  コマンドライン引数を使う方法
+3\.  Command line arguments
 
-Bash スクリプトや関数では、`$1` は渡された最初の引数、`$2` は 2 番目の引数を表します。その後の数字も同様です。
+In a bash script or function, `$1` denotes the initial argument passed, `$2` denotes the second argument passed, and so forth.
 
-下記のスクリプトは、コマンドライン引数として名前を受け取り、個別の挨拶メッセージを表示します。
+This script takes a name as a command-line argument and prints a personalized greeting.
 
 ```bash
 echo "Hello, $1!"
 ```
 
-スクリプトに引数として `Zaira` を渡してみます。
+We have supplied `Zaira` as our argument to the script.
 
 ```bash
 #!/bin/bash
 echo "Hello, $1!"
 ```
 
-スクリプト `greeting.sh` のコード
+The code for the script: `greeting.sh`
 
-**出力:**
+**Output:**
 
-![name-sh-1](https://www.freecodecamp.org/japanese/news/content/images/2024/07/name-sh-1.gif)
+![name-sh-1](https://www.freecodecamp.org/news/content/images/2023/03/name-sh-1.gif)
 
-### 出力の表示
+#### Displaying output
 
-ここでは、スクリプトから出力を受け取るいくつかの方法について説明します。
+Here we'll discuss some methods to receive output from the scripts.
 
-1.  ターミナルへの出力:
+1.  Printing to the terminal:
 
 ```bash
 echo "Hello, World!"
 ```
 
-これは、ターミナルに「Hello, World!」というテキストを表示します。
+This prints the text "Hello, World!" to the terminal.
 
-2.  ファイルへの書き込み:
+2\.  Writing to a file:
 
 ```bash
 echo "This is some text." > output.txt
 ```
 
-これは、「This is some text.」というテキストを `output.txt` という名前のファイルに書き込みます。なお、`>` 演算子はファイルに既に内容がある場合、それを上書きします。
+This writes the text "This is some text." to a file named `output.txt`. Note that the `>`operator overwrites a file if it already has some content.
 
-3.  ファイルへの追記:
+3\.  Appending to a file:
 
 ```bash
 echo "More text." >> output.txt
 ```
 
-これは、「More text.」というテキストを `output.txt` ファイルの末尾に追記します。
+This appends the text "More text." to the end of the file `output.txt`.
 
-4.  出力のリダイレクト:
+4\.  Redirecting output:
 
 ```bash
 ls > files.txt
 ```
 
-これは、現在のディレクトリ内のファイルを一覧表示し、その出力を `files.txt` という名前のファイルに書き込みます。この方法で任意のコマンドの出力をファイルにリダイレクトできます。
+This lists the files in the current directory and writes the output to a file named `files.txt`. You can redirect output of any command to a file this way.
 
-### 基本的な Bash コマンド (echo、read など)
+### Basic Bash commands (echo, read, etc.)
 
-以下は、最もよく使われる Bash コマンドのリストです:
+Here is a list of some of the most commonly used bash commands:
 
-1.  `cd`: ディレクトリを別の場所に変更します。
-2.  `ls`: 現在のディレクトリの内容を一覧表示します。
-3.  `mkdir`: 新しいディレクトリを作成します。
-4.  `touch`: 新しいファイルを作成します。
-5.  `rm`: ファイルまたはディレクトリを削除します。
-6.  `cp`: ファイルまたはディレクトリをコピーします。
-7.  `mv`: ファイルまたはディレクトリを移動または名前を変更します。
-8.  `echo`: テキストをターミナルに表示します。
-9.  `cat`: ファイルの内容を連結して表示します。
-10.  `grep`: ファイル内のパターンを検索します。
-11.  `chmod`: ファイルまたはディレクトリの権限を変更します。
-12.  `sudo`: 管理者権限でコマンドを実行します。
-13.  `df`: 使用可能なディスク容量を表示します。
-14.  `history`: 以前に実行したコマンドのリストを表示します。
-15.  `ps`: 実行中のプロセスに関する情報を表示します。
+1.  `cd`: Change the directory to a different location.
+2.  `ls`: List the contents of the current directory.
+3.  `mkdir`: Create a new directory.
+4.  `touch`: Create a new file.
+5.  `rm`: Remove a file or directory.
+6.  `cp`: Copy a file or directory.
+7.  `mv`: Move or rename a file or directory.
+8.  `echo`: Print text to the terminal.
+9.  `cat`: Concatenate and print the contents of a file.
+10.  `grep`: Search for a pattern in a file.
+11.  `chmod`: Change the permissions of a file or directory.
+12.  `sudo`: Run a command with administrative privileges.
+13.  `df`: Display the amount of disk space available.
+14.  `history`: Show a list of previously executed commands.
+15.  `ps`: Display information about running processes.
 
-### 条件文 (if / else)
+### Conditional statements (if/else)
 
-条件を評価してブール値 (true または false) を返す式は、条件と呼ばれます。条件を評価する方法には、`if`、`if-else`、`if-elif-else`、およびネストした条件分岐があります。
+Expressions that produce a boolean result, either true or false, are called conditions. There are several ways to evaluate conditions, including `if`, `if-else`, `if-elif-else`, and nested conditionals.
 
-**構文:**
+****Syntax****:
 
 ```bash
 if [[ condition ]];
@@ -474,17 +473,17 @@ else
 fi
 ```
 
-Bash の条件文の構文
+Syntax of bash conditional statements
 
-論理演算子、AND `-a` および OR `-o`、を使用して、より詳細な比較を行うことができます。
+We can use logical operators such as AND `-a` and OR `-o` to make comparisons that have more significance.
 
 ```bash
 if [ $a -gt 60 -a $b -lt 100 ]
 ```
 
-この文は、「a が 60 より大きい」かつ「b が 100 未満」という両方の条件が `true` であるかどうかをチェックします。
+This statement checks if both conditions are `true`: a is greater than 60 AND b is less than 100.
 
-ここでは、ユーザーが入力した数値が正、負、またはゼロのいずれかを判定するために、`if`、`if-else`、および `if-elif-else` 文を使用する Bash スクリプトの例を見てみましょう。
+Let's see an example of a Bash script that uses `if`, `if-else`, and `if-elif-else` statements to determine if a user-inputted number is positive, negative, or zero:
 
 ```bash
 #!/bin/bash
@@ -501,21 +500,21 @@ else
 fi
 ```
 
-数値が正、負、またはゼロのいずれかを判定するスクリプト
+Script to determine if a number is positive, negative, or zero
 
-最初に、スクリプトはユーザーに数値の入力を促します。次に、その数値が 0 より大きいかどうかを `if` 文でチェックします。もし数値が 0 より大きければ、スクリプトは数値が正であると出力します。当てはまらない場合、スクリプトは次の `if-elif` 文に進みます。ここで、スクリプトは数値が 0 より小さいかどうかをチェックします。もし数値が 0 より小さければ、スクリプトは数値が負であると出力します。最後に、もし数値が 0 より大きくも小さくもなければ、スクリプトは `else` 文を使用して数値がゼロであることを出力します。
+The script first prompts the user to enter a number. Then, it uses an `if` statement to check if the number is greater than 0. If it is, the script outputs that the number is positive. If the number is not greater than 0, the script moves on to the next statement, which is an `if-elif` statement. Here, the script checks if the number is less than 0. If it is, the script outputs that the number is negative. Finally, if the number is neither greater than 0 nor less than 0, the script uses an `else` statement to output that the number is zero.
 
-実際に動作を見てみましょう🚀
+Seeing it in action 🚀
 
-![test-odd](https://www.freecodecamp.org/japanese/news/content/images/2024/07/test-odd.gif)
+![test-odd](https://www.freecodecamp.org/news/content/images/2023/03/test-odd.gif)
 
-## Bash におけるループと分岐
+## Looping and Branching in Bash
 
-### While ループ
+### While loop
 
-While ループは条件を確認し、条件が `true` の間ループします。ループの実行を制御するために、カウンター文を提供する必要があります。
+While loops check for a condition and loop until the condition remains `true`. We need to provide a counter statement that increments the counter to control loop execution.
 
-以下の例では、`(( i += 1 ))` がカウンター文であり、`i` の値を増やします。このループはちょうど 10 回実行されます。
+In the example below, `(( i += 1 ))` is the counter statement that increments the value of `i`. The loop will run exactly 10 times.
 
 ```bash
 #!/bin/bash
@@ -526,15 +525,15 @@ while [[ $i -le 10 ]] ; do
 done
 ```
 
-10 回繰り返す While ループ
+While loop that iterates 10 times.
 
-![image-187](https://www.freecodecamp.org/japanese/news/content/images/2024/07/image-187.png)
+![image-187](https://www.freecodecamp.org/news/content/images/2023/03/image-187.png)
 
-### For ループ
+### For loop
 
-`for` ループも、`while` ループと同様に、特定の回数だけステートメントを実行することができます。それぞれのループは構文と使用方法が異なります。
+The `for` loop, just like the `while` loop, allows you to execute statements a specific number of times. Each loop differs in its syntax and usage.
 
-以下の例では、ループは 5 回繰り返されます。
+In the example below, the loop will iterate 5 times.
 
 ```bash
 #!/bin/bash
@@ -545,13 +544,13 @@ do
 done
 ```
 
-5 回繰り返す For ループ
+For loop that iterates 5 times.
 
-![image-186](https://www.freecodecamp.org/japanese/news/content/images/2024/07/image-186.png)
+![image-186](https://www.freecodecamp.org/news/content/images/2023/03/image-186.png)
 
-### Case 文
+### Case statements
 
-Bash では、case 文を使用して、与えられた値をパターンのリストと比較し、最初にマッチしたパターンに基づいてコードブロックを実行することができます。Bash における case 文の構文は以下の通りです:
+In Bash, case statements are used to compare a given value against a list of patterns and execute a block of code based on the first pattern that matches. The syntax for a case statement in Bash is as follows:
 
 ```bash
 case expression in
@@ -570,13 +569,13 @@ case expression in
 esac
 ```
 
-case 文の構文
+Case statements syntax
 
-ここでは、「expression」は比較したい値であり、「pattern1」、「pattern2」、「pattern3」などが比較対象にしたいパターンです。
+Here, "expression" is the value that we want to compare, and "pattern1", "pattern2", "pattern3", and so on are the patterns that we want to compare it against.
 
-二重のセミコロン ";;" は、各パターンに対して実行するコードブロックを区切ります。アスタリスク "\*" はデフォルトのケースを表し、指定されたパターンのどれも一致しない場合に実行されます。
+The double semicolon ";;" separates each block of code to execute for each pattern. The asterisk "\*" represents the default case, which executes if none of the specified patterns match the expression.
 
-例を見てみましょう。
+Let's see an example.
 
 ```bash
 fruit="apple"
@@ -597,50 +596,50 @@ case $fruit in
 esac
 ```
 
-case 文の例
+Example of case statement
 
-この例では、「fruit」の値が「apple」であるため、最初のパターンが一致し、「This is a red fruit.」と出力するコードブロックが実行されます。もし "fruit" の値が代わりに "banana" であれば、2 番目のパターンが一致し、「This is a yellow fruit.」と出力するコードブロックが実行されます。そして、「fruit」の値が指定されたどのパターンにも一致しない場合は、デフォルトのケースが実行され、「Unknown fruit.」と出力されます。
+In this example, since the value of "fruit" is "apple", the first pattern matches, and the block of code that echoes "This is a red fruit." is executed. If the value of "fruit" were instead "banana", the second pattern would match and the block of code that echoes "This is a yellow fruit." would execute, and so on. If the value of "fruit" does not match any of the specified patterns, the default case is executed, which echoes "Unknown fruit."
 
-## cron を使用したスクリプトのスケジュール設定方法
+## How to Schedule Scripts using cron
 
-Cron は、Unix 系オペレーティングシステムで利用可能なジョブスケジューリングの強力なユーティリティです。cron を設定することで、日次、週次、月次、または特定の時間ベースで自動ジョブを設定することができます。cron が提供する自動化機能は、Linux システム管理において重要な役割を果たします。
+Cron is a powerful utility for job scheduling that is available in Unix-like operating systems. By configuring cron, you can set up automated jobs to run on a daily, weekly, monthly, or specific time basis. The automation capabilities provided by cron play a crucial role in Linux system administration.
 
-以下は cron をスケジュールするための構文です:
+Below is the syntax to schedule crons:
 
 ```bash
 # Cron job example
 * * * * * sh /path/to/script.sh
 ```
 
-この `*` は、それぞれ分、時、日、月、曜日を表します。
+Here, the `*`s represent minute(s) hour(s) day(s) month(s) weekday(s), respectively.
 
-以下は cron ジョブをスケジュールするいくつかの例です。
+Below are some examples of scheduling cron jobs.
 
-| スケジュール | 説明 | 例 |
+| Schedule | Description | Example |
 | --- | --- | --- |
-| `0 0 * * *` | 毎日真夜中にスクリプトを実行する | `0 0 * * * /path/to/script.sh` |
-| `*/5 * * * *` | 5 分ごとにスクリプトを実行する | `*/5 * * * * /path/to/script.sh` |
-| `0 6 * * 1-5` | 月曜日から金曜日の朝 6 時にスクリプトを実行する | `0 6 * * 1-5 /path/to/script.sh` |
-| `0 0 1-7 * *` | 毎月最初の 7 日間にスクリプトを実行する | `0 0 1-7 * * /path/to/script.sh` |
-| `0 12 1 * *` | 毎月 1 日の正午にスクリプトを実行する | `0 12 1 * * /path/to/script.sh` |
+| `0 0 * * *` | Run a script at midnight every day | `0 0 * * * /path/to/script.sh` |
+| `*/5 * * * *` | Run a script every 5 minutes | `*/5 * * * * /path/to/script.sh` |
+| `0 6 * * 1-5` | Run a script at 6 am from Monday to Friday | `0 6 * * 1-5 /path/to/script.sh` |
+| `0 0 1-7 * *` | Run a script on the first 7 days of every month | `0 0 1-7 * * /path/to/script.sh` |
+| `0 12 1 * *` | Run a script on the first day of every month at noon | `0 12 1 * * /path/to/script.sh` |
 
-### crontab を使用する
+#### Using crontab
 
-`crontab` ユーティリティは、cron ジョブを追加および編集するために使用されます。
+The `crontab` utility is used to add and edit the cron jobs.
 
-`crontab -l` は特定のユーザーに予定されているスクリプトのリストを表示します。
+`crontab -l` lists the already scheduled scripts for a particular user.
 
-`crontab -e` を使用して cron を追加および編集できます。
+You can add and edit the cron through `crontab -e`.
 
-[他の記事で cron ジョブについて詳しく読む][26]ことができます。
+You can read more about corn jobs in my [other article here][25].
 
-## Bash スクリプトのデバッグとトラブルシューティング方法
+## How to Debug and Troubleshoot Bash Scripts
 
-デバッグとトラブルシューティングは、どんな Bash スクリプトの作成者にとっても重要なスキルです。Bash スクリプトは非常にパワフルですが、エラーや予期しない動作が発生することもあります。このセクションでは、Bash スクリプトのデバッグとトラブルシューティングのためのいくつかのヒントやテクニックについて説明します。
+Debugging and troubleshooting are essential skills for any Bash scripter. While Bash scripts can be incredibly powerful, they can also be prone to errors and unexpected behavior. In this section, we will discuss some tips and techniques for debugging and troubleshooting Bash scripts.
 
-### `set -x` オプションを設定する
+### Set the `set -x` option
 
-Bash スクリプトをデバッグするための最も有用なテクニックの 1 つは、スクリプトの先頭で `set -x` オプションを設定することです。このオプションを設定すると、Bash はデバッグモードが有効になり、実行する各コマンドの先頭に `+` 記号を付けて端末に出力します。これは、スクリプト内でどこでエラーが発生しているかを特定するのに非常に役立ちます。
+One of the most useful techniques for debugging Bash scripts is to set the `set -x` option at the beginning of the script. This option enables debugging mode, which causes Bash to print each command that it executes to the terminal, preceded by a `+` sign. This can be incredibly helpful in identifying where errors are occurring in your script.
 
 ```bash
 #!/bin/bash
@@ -650,9 +649,9 @@ set -x
 # Your script goes here
 ```
 
-### 終了コードを確認する
+### Check the exit code
 
-Bash がエラーに遭遇すると、そのエラーの性質を示す終了コードが設定されます。直近で実行したコマンドの終了コードは、`$?` 変数を使用して確認できます。値が `0` の場合、成功を示し、それ以外の値はエラーを示します。
+When Bash encounters an error, it sets an exit code that indicates the nature of the error. You can check the exit code of the most recent command using the `$?` variable. A value of `0` indicates success, while any other value indicates an error.
 
 ```bash
 #!/bin/bash
@@ -664,9 +663,9 @@ if [ $? -ne 0 ]; then
 fi
 ```
 
-### `echo` 文を使用する
+### Use `echo` statements
 
-Bash スクリプトをデバッグする別の有用なテクニックは、コード全体に `echo` 文を挿入することです。これにより、どこでエラーが発生しているかや変数に渡されている値を特定するのに役立ちます。
+Another useful technique for debugging Bash scripts is to insert `echo` statements throughout your code. This can help you identify where errors are occurring and what values are being passed to variables.
 
 ```bash
 #!/bin/bash
@@ -678,9 +677,9 @@ echo "Value of variable x is: $x"
 # More code goes here
 ```
 
-`set -e` オプションを使用する
+### Use the `set -e` option
 
-スクリプト内の任意のコマンドが失敗した場合にスクリプトを直ちに終了させたい場合は、`set -e` オプションを使用できます。このオプションにより、スクリプト内のどのコマンドが失敗しても Bash はエラーで終了し、スクリプト内のエラーを特定して修正することが容易になります。
+If you want your script to exit immediately when any command in the script fails, you can use the `set -e` option. This option will cause Bash to exit with an error if any command in the script fails, making it easier to identify and fix errors in your script.
 
 ```bash
 #!/bin/bash
@@ -690,19 +689,19 @@ set -e
 # Your script goes here
 ```
 
-### ログを確認して cron のトラブルシューティングを行う
+### Troubleshooting crons by verifying logs
 
-ログファイルを使用して cron のトラブルシューティングを行うことができます。スケジュールされたすべてのジョブについて、ログが保持されています。特定のジョブが意図通りに実行されたかどうか、ログを確認して検証することができます。
+We can troubleshoot crons using the log files. Logs are maintained for all the scheduled jobs. You can check and verify in logs if a specific job ran as intended or not.
 
-Ubuntu や Debian の場合、`cron` ログは次の場所にあります:
+For Ubuntu/Debian, you can find `cron`logs at:
 
 ```bash
 /var/log/syslog
 ```
 
-他のディストリビューションでは場所が異なる場合があります。
+The location varies for other distributions.
 
-cron ジョブのログファイルは次のようになっているでしょう:
+A cron job log file can look like this:
 
 ```bash
 2022-03-11 00:00:01 Task started
@@ -717,49 +716,62 @@ cron ジョブのログファイルは次のようになっているでしょう
 2022-03-11 00:10:03 Script completed successfully
 ```
 
-cron ログ
+Cron log
 
-## 結論
+## Conclusion
 
-この記事では、まずターミナルへのアクセス方法といくつかの基本的な Bash コマンドの実行方法を説明しました。また、Bash シェルの概要についても学びました。ループや条件分岐を使用したコードの分岐についても簡単に見てきました。最後に、cron を使用したスクリプトの自動化とそのトラブルシューティング手法についても述べました。
+In this article, we started with how to access the terminal and then ran some basic bash commands. We also studied what a bash shell is. We briefly looked at branching the code using loops and conditionals. Finally, we discussed automating the scripts using cron followed by some troubleshooting techniques.
 
-### Bash スクリプトに関するさらなる学習リソース
+### Resources for learning more about Bash scripting
 
-Bash スクリプティングの世界をさらに深く掘り下げたい場合は、freeCodeCamp による Linux に関する 6 時間の動画講座をお勧めします。
+If you want to dig deeper into the world of bash scripting, I would suggest you have a look at this 6-hour course on Linux at freeCodeCamp.
 
-<iframe width="200" height="113" src="https://www.youtube.com/embed/sWbUDq4S6Y8?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="" title="Introduction to Linux – Full Course for Beginners" name="fitvid0"></iframe>
+<iframe width="356" height="200" src="https://www.youtube.com/embed/sWbUDq4S6Y8?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" title="Introduction to Linux – Full Course for Beginners" name="fitvid0"></iframe>
 
-このチュートリアルで学んだ中で一番好きなことは何ですか？また、この[プラットフォーム][27]で私とつながることもできます。📧
+What’s your favorite thing you learned from this tutorial? You can also connect [][26]with me on any of these [platforms][27]. 📧�
 
-次のチュートリアルでお会いしましょう。楽しいコーディングを😁
+See you in the next tutorial, happy coding 😁
 
-バナー画像のクレジット: [Freepik][28] による画像
+Banner image credits: Image by [Freepik][28]
 
-[1]: https://www.freecodecamp.org/news/bash-scripting-tutorial-linux-shell-script-and-command-line-for-beginners/
-[2]: #pre-requisites
-[3]: #introduction
-[4]: #definition-of-bash-scripting
-[5]: #advantages-of-bash-scripting
-[6]: #overview-of-bash-shell-and-command-line-interface
-[7]: #how-to-get-started-with-bash-scripting
-[8]: #how-to-run-bash-commands-from-the-command-line
-[9]: #how-to-create-and-execute-bash-scripts
-[10]: #bash-scripting-basics
-[11]: #comments-in-bash-scripting
-[12]: #variables-and-data-types-in-bash
-[13]: #input-and-output-in-bash-scripts
-[14]: #basic-bash-commands-echo-read-etc-
-[15]: #conditional-statements-if-else-
-[16]: #looping-and-branching-in-bash
-[17]: #while-loop
-[18]: #for-loop
-[19]: #case-statements
-[20]: #how-to-schedule-scripts-using-cron
-[21]: #how-to-debug-and-troubleshoot-bash-scripts
-[22]: #conclusion
-[23]: #resources-for-learning-more-about-bash-scripting
-[24]: https://replit.com/~
-[25]: https://www.freecodecamp.org/news/how-to-install-wsl2-windows-subsystem-for-linux-2-on-windows-10/
-[26]: https://www.freecodecamp.org/news/cron-jobs-in-linux/
+---
+
+![Zaira Hira](https://www.freecodecamp.org/news/content/images/size/w60/2024/07/Untitled-design--8-.png)
+
+I am a DevOps Consultant and writer at FreeCodeCamp. I aim to provide easy and to-the-point content for Techies!
+
+---
+
+If you read this far, thank the author to show them you care. Say Thanks
+
+Learn to code for free. freeCodeCamp's open source curriculum has helped more than 40,000 people get jobs as developers. [Get started][29]
+
+[1]: #pre-requisites
+[2]: #introduction
+[3]: #definition-of-bash-scripting
+[4]: #advantages-of-bash-scripting
+[5]: #overview-of-bash-shell-and-command-line-interface
+[6]: #how-to-get-started-with-bash-scripting
+[7]: #how-to-run-bash-commands-from-the-command-line
+[8]: #how-to-create-and-execute-bash-scripts
+[9]: #bash-scripting-basics
+[10]: #comments-in-bash-scripting
+[11]: #variables-and-data-types-in-bash
+[12]: #input-and-output-in-bash-scripts
+[13]: #basic-bash-commands-echo-read-etc-
+[14]: #conditional-statements-if-else-
+[15]: #looping-and-branching-in-bash
+[16]: #while-loop
+[17]: #for-loop
+[18]: #case-statements
+[19]: #how-to-schedule-scripts-using-cron
+[20]: #how-to-debug-and-troubleshoot-bash-scripts
+[21]: #conclusion
+[22]: #resources-for-learning-more-about-bash-scripting
+[23]: https://replit.com/~
+[24]: https://www.freecodecamp.org/news/how-to-install-wsl2-windows-subsystem-for-linux-2-on-windows-10/
+[25]: https://www.freecodecamp.org/news/cron-jobs-in-linux/
+[26]: https://www.freecodecamp.org/news/p/01e109a1-569f-45d1-b5db-c35259b5da7f/zaira_.bio.link
 [27]: https://zaira_.bio.link/
 [28]: https://www.freepik.com/free-vector/hand-drawn-flat-design-devops-illustration_25726540.htm#query=programmer%20linux&position=4&from_view=search&track=ais
+[29]: https://www.freecodecamp.org/learn/
